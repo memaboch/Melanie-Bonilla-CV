@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Melanie Bonilla — Marketing Strategist & Digital Automation Expert</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0d1f3c;
+    --navy2: #1b3a6b;
+    --gold: #c9922a;
+    --gold-light: #e8b860;
+    --cream: #faf7f2;
+    --cream2: #f3ede3;
+    --text: #1a1a1a;
+    --muted: #7a7469;
+    --white: #ffffff;
+    --accent: #c9922a;
+    --line: rgba(201,146,42,0.25);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* CURSOR */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.3s, height 0.3s, background 0.3s;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease, width 0.3s, height 0.3s, opacity 0.3s;
+    opacity: 0.6;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 24px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: background 0.4s, padding 0.4s, backdrop-filter 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(13,31,60,0.95);
+    backdrop-filter: blur(16px);
+    padding: 16px 60px;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 600;
+    color: var(--white); letter-spacing: 0.04em;
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; font-weight: 500; letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.75);
+    text-decoration: none; text-transform: uppercase;
+    transition: color 0.2s;
+    position: relative;
+  }
+  .nav-links a::after {
+    content: ''; position: absolute; bottom: -3px; left: 0; right: 0; height: 1px;
+    background: var(--gold); transform: scaleX(0); transition: transform 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-links a:hover::after { transform: scaleX(1); }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    background: linear-gradient(135deg, var(--navy) 0%, #0f2847 50%, #1a3a60 100%);
+    position: relative; overflow: hidden;
+    display: flex; align-items: center;
+  }
+  .hero-bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(201,146,42,0.07) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,146,42,0.07) 1px, transparent 1px);
+    background-size: 80px 80px;
+    animation: gridMove 25s linear infinite;
+  }
+  @keyframes gridMove {
+    from { transform: translateY(0); }
+    to { transform: translateY(80px); }
+  }
+  .hero-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.18;
+    animation: orbFloat 8s ease-in-out infinite alternate;
+  }
+  .orb1 { width: 600px; height: 600px; background: var(--gold); top: -200px; right: -100px; }
+  .orb2 { width: 400px; height: 400px; background: #4a90d9; bottom: -100px; left: -100px; animation-delay: -4s; }
+  @keyframes orbFloat {
+    from { transform: translate(0, 0) scale(1); }
+    to { transform: translate(30px, -30px) scale(1.05); }
+  }
+
+  .hero-content {
+    position: relative; z-index: 2;
+    max-width: 1200px; margin: 0 auto;
+    padding: 120px 60px 80px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center;
+  }
+  .hero-text .eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; font-weight: 500;
+    color: var(--gold-light);
+    letter-spacing: 0.2em; text-transform: uppercase;
+    margin-bottom: 24px;
+    opacity: 0; animation: fadeUp 0.8s 0.2s forwards;
+  }
+  .hero-text h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(54px, 6vw, 82px);
+    font-weight: 300; line-height: 1.05;
+    color: var(--white);
+    margin-bottom: 28px;
+    opacity: 0; animation: fadeUp 0.9s 0.35s forwards;
+  }
+  .hero-text h1 em {
+    font-style: italic; color: var(--gold-light);
+    display: block;
+  }
+  .hero-text .lead {
+    font-size: 17px; line-height: 1.75;
+    color: rgba(255,255,255,0.72);
+    max-width: 480px; margin-bottom: 44px;
+    opacity: 0; animation: fadeUp 0.9s 0.5s forwards;
+  }
+  .hero-cta {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    opacity: 0; animation: fadeUp 0.9s 0.65s forwards;
+  }
+  .btn-primary {
+    background: var(--gold); color: var(--white);
+    padding: 14px 32px; border-radius: 3px;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.07em; text-transform: uppercase;
+    text-decoration: none; border: none; cursor: pointer;
+    transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(201,146,42,0.3);
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(201,146,42,0.45); }
+  .btn-outline {
+    border: 1.5px solid rgba(255,255,255,0.35); color: rgba(255,255,255,0.85);
+    padding: 14px 32px; border-radius: 3px;
+    font-size: 13px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase;
+    text-decoration: none; transition: border-color 0.2s, color 0.2s, transform 0.2s;
+  }
+  .btn-outline:hover { border-color: var(--gold-light); color: var(--gold-light); transform: translateY(-2px); }
+
+  .hero-stats {
+    display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px;
+    opacity: 0; animation: fadeUp 0.9s 0.8s forwards;
+  }
+  .stat-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; padding: 28px 24px;
+    backdrop-filter: blur(8px);
+    transition: background 0.3s, transform 0.3s, border-color 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .stat-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    transform: translateX(-100%); transition: transform 0.5s;
+  }
+  .stat-card:hover { background: rgba(255,255,255,0.1); transform: translateY(-4px); border-color: rgba(201,146,42,0.4); }
+  .stat-card:hover::before { transform: translateX(100%); }
+  .stat-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px; font-weight: 600; line-height: 1;
+    color: var(--gold-light); margin-bottom: 8px;
+  }
+  .stat-label { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.4; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    background: var(--navy);
+    padding: 18px 0; overflow: hidden;
+    border-top: 1px solid rgba(201,146,42,0.2);
+    border-bottom: 1px solid rgba(201,146,42,0.2);
+  }
+  .marquee-track {
+    display: flex; gap: 0;
+    animation: marquee 30s linear infinite;
+    width: max-content;
+  }
+  .marquee-item {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase;
+    color: rgba(255,255,255,0.5); white-space: nowrap;
+    padding: 0 40px;
+  }
+  .marquee-item span { color: var(--gold); margin: 0 8px; }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTIONS */
+  section { padding: 120px 60px; max-width: 1200px; margin: 0 auto; }
+  .section-eyebrow {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px; font-weight: 500;
+    letter-spacing: 0.22em; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(38px, 4vw, 58px);
+    font-weight: 300; line-height: 1.1;
+    color: var(--navy); margin-bottom: 60px;
+  }
+  .section-title em { font-style: italic; color: var(--gold); }
+
+  /* ABOUT */
+  #about { max-width: 1200px; margin: 0 auto; }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1.6fr; gap: 80px; align-items: start;
+  }
+  .about-left { position: sticky; top: 120px; }
+  .about-photo-frame {
+    position: relative; margin-bottom: 40px;
+  }
+  .about-photo-frame::before {
+    content: ''; position: absolute;
+    top: 16px; left: 16px; right: -16px; bottom: -16px;
+    border: 2px solid var(--gold); border-radius: 4px; z-index: 0;
+  }
+  .about-photo-frame img {
+    position: relative; z-index: 1;
+    width: 100%; border-radius: 4px;
+    filter: grayscale(20%) contrast(1.05);
+    display: block;
+  }
+  .about-photo-placeholder {
+    position: relative; z-index: 1;
+    width: 100%; aspect-ratio: 3/4;
+    background: linear-gradient(135deg, var(--navy2), var(--navy));
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .about-photo-placeholder svg { width: 80px; opacity: 0.3; }
+  .about-contact-card { background: var(--navy); color: var(--white); padding: 28px; border-radius: 6px; }
+  .about-contact-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold); margin-bottom: 6px; }
+  .about-contact-card .value { font-size: 14px; color: rgba(255,255,255,0.85); margin-bottom: 18px; word-break: break-all; }
+  .about-contact-card .value:last-child { margin-bottom: 0; }
+
+  .about-right {}
+  .about-intro {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 400; line-height: 1.55;
+    color: var(--navy); margin-bottom: 32px;
+  }
+  .about-intro em { font-style: italic; color: var(--gold); }
+  .about-body {
+    font-size: 16px; line-height: 1.8; color: #4a4540;
+    margin-bottom: 48px;
+  }
+  .tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; }
+  .tag {
+    background: var(--cream2); border: 1px solid var(--line);
+    padding: 7px 16px; border-radius: 2px;
+    font-size: 12px; font-weight: 500; letter-spacing: 0.06em;
+    color: var(--navy2); text-transform: uppercase;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
+  }
+  .tag:hover { background: var(--navy); color: var(--gold-light); border-color: var(--navy); }
+
+  /* EXPERIENCE */
+  #experience { background: var(--navy); color: var(--white); max-width: 100%; padding: 120px 0; }
+  #experience .inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+  #experience .section-title { color: var(--white); }
+  .timeline { position: relative; }
+  .timeline::before {
+    content: ''; position: absolute;
+    left: 0; top: 0; bottom: 0; width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--gold), var(--gold-light), transparent);
+  }
+  .tl-item {
+    display: grid; grid-template-columns: 200px 1fr; gap: 48px;
+    padding: 48px 0 48px 40px; position: relative;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .tl-item::before {
+    content: ''; position: absolute;
+    left: -5px; top: 54px; width: 11px; height: 11px;
+    background: var(--gold); border-radius: 50%;
+    box-shadow: 0 0 0 4px rgba(201,146,42,0.2);
+  }
+  .tl-meta { padding-top: 4px; }
+  .tl-period {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px; color: var(--gold-light); letter-spacing: 0.08em;
+    margin-bottom: 8px;
+  }
+  .tl-company { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.4; }
+  .tl-content {}
+  .tl-role {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 400; color: var(--white);
+    margin-bottom: 16px; line-height: 1.2;
+  }
+  .tl-desc {
+    font-size: 15px; line-height: 1.75; color: rgba(255,255,255,0.65);
+    margin-bottom: 20px;
+  }
+  .tl-pills { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tl-pill {
+    background: rgba(201,146,42,0.12); border: 1px solid rgba(201,146,42,0.25);
+    padding: 4px 12px; border-radius: 2px;
+    font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--gold-light);
+  }
+
+  /* SKILLS / TECH */
+  #skills { max-width: 1200px; margin: 0 auto; }
+  .skills-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; }
+  .skill-card {
+    background: var(--white);
+    border: 1px solid rgba(13,31,60,0.08);
+    border-radius: 8px; padding: 36px 32px;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    position: relative; overflow: hidden;
+  }
+  .skill-card::after {
+    content: ''; position: absolute;
+    bottom: 0; left: 0; right: 0; height: 3px;
+    background: var(--gold);
+    transform: scaleX(0); transform-origin: left; transition: transform 0.4s;
+  }
+  .skill-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(13,31,60,0.12); border-color: rgba(201,146,42,0.3); }
+  .skill-card:hover::after { transform: scaleX(1); }
+  .skill-icon { font-size: 32px; margin-bottom: 20px; }
+  .skill-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--navy); margin-bottom: 12px; }
+  .skill-desc { font-size: 14px; line-height: 1.7; color: var(--muted); }
+  .skill-tools { margin-top: 20px; display: flex; flex-wrap: wrap; gap: 6px; }
+  .stool {
+    background: var(--cream2); font-size: 11px; font-weight: 500;
+    padding: 3px 10px; border-radius: 2px; color: var(--navy2);
+    letter-spacing: 0.05em;
+  }
+
+  /* PHILOSOPHY / AI */
+  #ai-vision {
+    background: linear-gradient(135deg, var(--navy), #0a1a30);
+    color: var(--white); max-width: 100%; padding: 120px 0;
+  }
+  #ai-vision .inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; }
+  #ai-vision .section-title { color: var(--white); }
+  .vision-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .vision-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px; font-weight: 300; line-height: 1.45;
+    color: rgba(255,255,255,0.9);
+    border-left: 3px solid var(--gold);
+    padding-left: 36px; margin-bottom: 32px;
+  }
+  .vision-quote em { color: var(--gold-light); font-style: italic; }
+  .vision-points { list-style: none; }
+  .vision-points li {
+    display: flex; gap: 16px;
+    font-size: 15px; line-height: 1.7;
+    color: rgba(255,255,255,0.65);
+    padding: 16px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .vision-points li .vi { color: var(--gold); font-size: 18px; flex-shrink: 0; margin-top: 2px; }
+  .ai-badges { display: flex; flex-direction: column; gap: 20px; }
+  .ai-badge {
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(201,146,42,0.2);
+    border-radius: 8px; padding: 28px 28px;
+    transition: background 0.3s, transform 0.3s;
+  }
+  .ai-badge:hover { background: rgba(201,146,42,0.1); transform: translateX(6px); }
+  .ai-badge-title { font-size: 15px; font-weight: 600; color: var(--gold-light); margin-bottom: 8px; }
+  .ai-badge-desc { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.6; }
+
+  /* EDUCATION */
+  #education { max-width: 1200px; margin: 0 auto; }
+  .edu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+  .edu-card {
+    background: var(--white); border-radius: 8px; padding: 32px;
+    border: 1px solid rgba(13,31,60,0.08);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+  }
+  .edu-card:hover { transform: translateY(-4px); box-shadow: 0 16px 40px rgba(13,31,60,0.1); }
+  .edu-card.featured { grid-column: span 2; background: var(--navy); color: var(--white); }
+  .edu-period {
+    font-family: 'DM Mono', monospace; font-size: 11px;
+    letter-spacing: 0.12em; color: var(--gold); margin-bottom: 10px;
+  }
+  .edu-card.featured .edu-period { color: var(--gold-light); }
+  .edu-degree {
+    font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600;
+    color: var(--navy); margin-bottom: 8px;
+  }
+  .edu-card.featured .edu-degree { color: var(--white); }
+  .edu-school { font-size: 14px; color: var(--muted); }
+  .edu-card.featured .edu-school { color: rgba(255,255,255,0.6); }
+
+  /* CONTACT */
+  #contact {
+    background: var(--cream2); max-width: 100%; padding: 120px 0;
+  }
+  #contact .inner { max-width: 1200px; margin: 0 auto; padding: 0 60px; text-align: center; }
+  #contact .section-title { margin-bottom: 20px; }
+  .contact-sub { font-size: 17px; color: var(--muted); margin-bottom: 60px; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .contact-cards { display: flex; justify-content: center; gap: 24px; flex-wrap: wrap; }
+  .contact-card {
+    background: var(--white); border-radius: 8px; padding: 32px 40px;
+    border: 1px solid rgba(13,31,60,0.08);
+    text-decoration: none; color: var(--text);
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    min-width: 220px; text-align: center;
+  }
+  .contact-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(13,31,60,0.1); border-color: var(--gold); }
+  .contact-card .cc-icon { font-size: 28px; margin-bottom: 12px; }
+  .contact-card .cc-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.12em; color: var(--gold); margin-bottom: 6px; }
+  .contact-card .cc-value { font-size: 15px; font-weight: 500; color: var(--navy); }
+
+  /* FOOTER */
+  footer {
+    background: var(--navy); color: rgba(255,255,255,0.4);
+    text-align: center; padding: 32px;
+    font-size: 13px; letter-spacing: 0.05em;
+  }
+  footer span { color: var(--gold); }
+
+  /* SCROLL REVEAL */
+  .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s, transform 0.8s; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    nav.scrolled { padding: 14px 24px; }
+    .hero-content { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+    .hero-stats { grid-template-columns: 1fr 1fr; }
+    section { padding: 80px 24px; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-left { position: static; }
+    #experience .inner, #ai-vision .inner, #contact .inner { padding: 0 24px; }
+    .skills-grid { grid-template-columns: 1fr; }
+    .vision-grid { grid-template-columns: 1fr; }
+    .edu-grid { grid-template-columns: 1fr; }
+    .edu-card.featured { grid-column: span 1; }
+    .tl-item { grid-template-columns: 1fr; gap: 12px; padding-left: 32px; }
+    .nav-links { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<nav id="navbar">
+  <a href="#" class="nav-logo">Melanie Bonilla</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#skills">Expertise</a></li>
+    <li><a href="#ai-vision">AI Vision</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <p class="eyebrow">Marketing Strategist & Digital Innovator</p>
+      <h1>Melanie<br><em>Bonilla</em></h1>
+      <p class="lead">Senior Omnichannel Marketing Manager with 10+ years driving growth across pharma, fintech, and real estate. Specialist in AI-powered automation, Salesforce Marketing Cloud, and data-led content strategy.</p>
+      <div class="hero-cta">
+        <a href="#contact" class="btn-primary">Get in Touch</a>
+        <a href="#experience" class="btn-outline">View Experience</a>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card">
+        <div class="stat-number">10+</div>
+        <div class="stat-label">Years of marketing leadership</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">5</div>
+        <div class="stat-label">Industries mastered</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Countries of market reach</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">2</div>
+        <div class="stat-label">Degrees + MBA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track" id="marqueeTrack"></div>
+</div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-left reveal">
+      <div class="about-photo-frame">
+        <div class="about-photo-placeholder">
+          <svg viewBox="0 0 80 100" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="40" cy="30" r="22"/>
+            <path d="M0 100 C0 70 80 70 80 100 Z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="about-contact-card">
+        <div class="label">Email</div>
+        <div class="value">melanie.bonilla.c@gmail.com</div>
+        <div class="label">Phone</div>
+        <div class="value">+507 6480 3813</div>
+        <div class="label">LinkedIn</div>
+        <div class="value">linkedin.com/in/melaniebonilla</div>
+        <div class="label">Location</div>
+        <div class="value">Panama City, Panama</div>
+      </div>
+    </div>
+    <div class="about-right reveal">
+      <p class="section-eyebrow">About Me</p>
+      <h2 class="section-title">Where <em>creativity</em> meets<br>intelligent strategy</h2>
+      <p class="about-intro">I don't just run campaigns — I build <em>systems that scale</em>. My work lives at the intersection of data science, behavioral psychology, and brand storytelling.</p>
+      <p class="about-body">With over a decade of experience spanning pharmaceutical giants (GSK), fintech scale-ups, and luxury real estate, I've developed a rare ability to adapt brand voice and digital strategy across dramatically different industries and audiences.<br><br>
+      Currently at GSK CARICAM, I lead omnichannel content experiences for healthcare professionals, wielding Salesforce Marketing Cloud and Veeva Vault to design automated journeys that feel human, relevant, and impactful. I'm deeply invested in the intersection of AI and marketing — not as a trend, but as a fundamental shift in how we understand and reach audiences.<br><br>
+      I hold an MBA in Marketing & Commercial Management, two bachelor's degrees, and I'm currently completing a Master's in Higher Education, which reflects my belief that the best marketers are, at their core, great teachers.</p>
+      <div class="tag-cloud">
+        <span class="tag">Omnichannel Strategy</span>
+        <span class="tag">Marketing Automation</span>
+        <span class="tag">AI-Driven Campaigns</span>
+        <span class="tag">Salesforce MC</span>
+        <span class="tag">Veeva Vault</span>
+        <span class="tag">HCP Engagement</span>
+        <span class="tag">SEO / SEM</span>
+        <span class="tag">Lead Generation</span>
+        <span class="tag">Data Analytics</span>
+        <span class="tag">Brand Development</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<div id="experience">
+  <div class="inner">
+    <p class="section-eyebrow" style="color:var(--gold-light)">Career Trajectory</p>
+    <h2 class="section-title">Professional<br><em>Experience</em></h2>
+    <div class="timeline">
+      <div class="tl-item reveal">
+        <div class="tl-meta">
+          <div class="tl-period">2024 – Present</div>
+          <div class="tl-company">GSK · CARICAM Region</div>
+        </div>
+        <div class="tl-content">
+          <div class="tl-role">Omnichannel Content Specialist</div>
+          <p class="tl-desc">Leading digital content strategy for healthcare professional engagement across the Caribbean and Central America. Designing automated journeys in Salesforce Marketing Cloud, managing regulated content in Veeva Vault, and translating complex clinical data into compelling multi-channel narratives that resonate with HCPs.</p>
+          <div class="tl-pills">
+            <span class="tl-pill">Salesforce MC</span>
+            <span class="tl-pill">Veeva Vault</span>
+            <span class="tl-pill">HCP Engagement</span>
+            <span class="tl-pill">Content Automation</span>
+            <span class="tl-pill">Pharma Marketing</span>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-meta">
+          <div class="tl-period">2022 – 2024</div>
+          <div class="tl-company">CNP Group · FinSANA</div>
+        </div>
+        <div class="tl-content">
+          <div class="tl-role">Marketing Manager</div>
+          <p class="tl-desc">Owned the full digital funnel for a fast-growing fintech. Managed annual budget and quarterly growth targets while building a performance marketing engine: SEO/SEM, paid social, automated lead nurturing via HubSpot, and CRM integration that connected marketing data to sales outcomes.</p>
+          <div class="tl-pills">
+            <span class="tl-pill">Full-Funnel Marketing</span>
+            <span class="tl-pill">HubSpot CRM</span>
+            <span class="tl-pill">Paid Ads</span>
+            <span class="tl-pill">A/B Testing</span>
+            <span class="tl-pill">Budget Management</span>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-meta">
+          <div class="tl-period">2020 – 2022</div>
+          <div class="tl-company">Casco Development</div>
+        </div>
+        <div class="tl-content">
+          <div class="tl-role">Marketing & Advertising Manager</div>
+          <p class="tl-desc">Directed the full marketing department for a premium real estate developer. Responsible for annual brand strategy, team leadership, ATL/BTL campaign execution, and digital performance. Built the marketing infrastructure from the ground up and significantly increased qualified lead acquisition.</p>
+          <div class="tl-pills">
+            <span class="tl-pill">Real Estate Marketing</span>
+            <span class="tl-pill">Team Leadership</span>
+            <span class="tl-pill">ATL/BTL</span>
+            <span class="tl-pill">Brand Strategy</span>
+          </div>
+        </div>
+      </div>
+      <div class="tl-item reveal">
+        <div class="tl-meta">
+          <div class="tl-period">2016 – 2019</div>
+          <div class="tl-company">WX Agency · Urban Dev Group</div>
+        </div>
+        <div class="tl-content">
+          <div class="tl-role">Inbound Marketing Specialist & Coordinator</div>
+          <p class="tl-desc">Built inbound marketing expertise from the ground up at WX Agency using HubSpot, earning three professional certifications. Attended INBOUND'17 in Boston. Then applied this expertise at Urban Development Group to drive real estate lead generation through data-driven digital campaigns.</p>
+          <div class="tl-pills">
+            <span class="tl-pill">HubSpot</span>
+            <span class="tl-pill">Inbound Marketing</span>
+            <span class="tl-pill">Email Automation</span>
+            <span class="tl-pill">Lead Nurturing</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section id="skills">
+  <p class="section-eyebrow">Core Expertise</p>
+  <h2 class="section-title">What I bring<br>to every <em>brand</em></h2>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-icon">⚙️</div>
+      <div class="skill-name">Marketing Automation</div>
+      <p class="skill-desc">Designing sophisticated automated workflows that nurture leads and engage customers at every stage — from awareness to conversion to loyalty.</p>
+      <div class="skill-tools">
+        <span class="stool">Salesforce MC</span><span class="stool">HubSpot</span><span class="stool">Zoho</span><span class="stool">Email Journeys</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">📊</div>
+      <div class="skill-name">Data & Analytics</div>
+      <p class="skill-desc">Transforming raw performance data into strategic decisions. Fluent in analytics platforms, A/B testing methodology, and turning insights into action.</p>
+      <div class="skill-tools">
+        <span class="stool">Google Analytics</span><span class="stool">SEMrush</span><span class="stool">Search Console</span><span class="stool">UTM Tracking</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🎯</div>
+      <div class="skill-name">Performance Marketing</div>
+      <p class="skill-desc">Multi-channel paid media strategy with a relentless focus on ROI. Google Ads, Meta, conversion optimization, and landing page excellence.</p>
+      <div class="skill-tools">
+        <span class="stool">Google Ads</span><span class="stool">Meta Ads</span><span class="stool">SEO/SEM</span><span class="stool">CRO</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🏥</div>
+      <div class="skill-name">Pharma & Healthcare</div>
+      <p class="skill-desc">Navigating the complex regulatory landscape of pharmaceutical marketing while creating compliant, impactful content for healthcare professionals.</p>
+      <div class="skill-tools">
+        <span class="stool">Veeva Vault</span><span class="stool">HCP Marketing</span><span class="stool">Regulatory Compliance</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🗺️</div>
+      <div class="skill-name">Customer Journey Design</div>
+      <p class="skill-desc">Mapping and optimizing end-to-end customer experiences. Building personas, touchpoint analysis, and seamless cross-channel journeys.</p>
+      <div class="skill-tools">
+        <span class="stool">Journey Mapping</span><span class="stool">Persona Dev.</span><span class="stool">UX Strategy</span>
+      </div>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-icon">🚀</div>
+      <div class="skill-name">Brand Strategy & Content</div>
+      <p class="skill-desc">From positioning to content systems — building brands that resonate emotionally and perform commercially across digital and traditional channels.</p>
+      <div class="skill-tools">
+        <span class="stool">Brand Development</span><span class="stool">Content Strategy</span><span class="stool">Social Media</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI VISION -->
+<div id="ai-vision">
+  <div class="inner">
+    <p class="section-eyebrow" style="color:var(--gold-light)">The Future of Marketing</p>
+    <h2 class="section-title">AI is not a tool.<br><em>It's a mindset shift.</em></h2>
+    <div class="vision-grid">
+      <div class="reveal">
+        <blockquote class="vision-quote">
+          "The marketers who will lead the next decade are those who can make <em>AI think in their brand's voice</em> — not just use it as a shortcut."
+        </blockquote>
+        <ul class="vision-points">
+          <li><span class="vi">▪</span> I use AI to build intelligent segmentation models that predict engagement before a campaign launches</li>
+          <li><span class="vi">▪</span> I design automated content pipelines that adapt messaging based on real-time behavioral signals</li>
+          <li><span class="vi">▪</span> I leverage generative AI for rapid content ideation while ensuring every output aligns with brand strategy</li>
+          <li><span class="vi">▪</span> I believe the future of omnichannel is hyper-personalization at scale — and I'm already building it</li>
+        </ul>
+      </div>
+      <div class="ai-badges reveal">
+        <div class="ai-badge">
+          <div class="ai-badge-title">Predictive Audience Segmentation</div>
+          <div class="ai-badge-desc">Using engagement scores and behavioral data to build dynamic audience segments that improve campaign relevance and reduce wasted spend.</div>
+        </div>
+        <div class="ai-badge">
+          <div class="ai-badge-title">AI-Augmented Content Creation</div>
+          <div class="ai-badge-desc">Integrating generative AI into content workflows to accelerate production while maintaining strategic alignment and brand voice integrity.</div>
+        </div>
+        <div class="ai-badge">
+          <div class="ai-badge-title">Intelligent Campaign Automation</div>
+          <div class="ai-badge-desc">Architecting multi-trigger email journeys and omnichannel flows that respond to user behavior in real time, reducing manual intervention.</div>
+        </div>
+        <div class="ai-badge">
+          <div class="ai-badge-title">Performance Intelligence Dashboards</div>
+          <div class="ai-badge-desc">Building connected analytics ecosystems where every channel feeds into a single source of truth for faster, smarter decisions.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- EDUCATION -->
+<section id="education">
+  <p class="section-eyebrow">Academic Foundation</p>
+  <h2 class="section-title">Education &<br><em>Certifications</em></h2>
+  <div class="edu-grid">
+    <div class="edu-card featured reveal">
+      <div class="edu-period">2020 – 2022</div>
+      <div class="edu-degree">MBA — Marketing & Commercial Management</div>
+      <div class="edu-school">ENEB Business School, Spain · Dual International Credential</div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-period">2024 – In Progress</div>
+      <div class="edu-degree">Master's in Higher Education</div>
+      <div class="edu-school">Universidad Latina de Panamá</div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-period">2015 – 2016</div>
+      <div class="edu-degree">B.Sc. Business Administration — Marketing</div>
+      <div class="edu-school">Universidad Latina de Panamá</div>
+    </div>
+    <div class="edu-card reveal">
+      <div class="edu-period">2012 – 2015</div>
+      <div class="edu-degree">B.Sc. Advertising & Marketing — Video Production</div>
+      <div class="edu-school">Universidad Latina de Panamá</div>
+    </div>
+  </div>
+  <div style="margin-top:48px;" class="reveal">
+    <p class="section-eyebrow">Professional Certifications</p>
+    <div class="tag-cloud" style="margin-top:20px;">
+      <span class="tag">HubSpot Inbound Marketing</span>
+      <span class="tag">HubSpot Inbound Sales</span>
+      <span class="tag">HubSpot Sales Plan Development</span>
+      <span class="tag">INBOUND'17 — Boston, MA</span>
+      <span class="tag">Digital Marketing for Real Estate (MtxMt)</span>
+      <span class="tag">Negotiation & Conflict Resolution (U. of Louisville)</span>
+      <span class="tag">TV Production Diploma (ULAT)</span>
+      <span class="tag">Broadcasting License (U. del Istmo)</span>
+      <span class="tag">Latin American Entrepreneurship Conference</span>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div id="contact">
+  <div class="inner">
+    <p class="section-eyebrow">Let's Connect</p>
+    <h2 class="section-title">Ready to build<br>something <em>remarkable</em>?</h2>
+    <p class="contact-sub">Whether it's a bold marketing challenge or a conversation about the future of automation and AI — I'd love to connect.</p>
+    <div class="contact-cards">
+      <a href="mailto:melanie.bonilla.c@gmail.com" class="contact-card">
+        <div class="cc-icon">✉️</div>
+        <div class="cc-label">Email</div>
+        <div class="cc-value">melanie.bonilla.c@gmail.com</div>
+      </a>
+      <a href="tel:+50764803813" class="contact-card">
+        <div class="cc-icon">📱</div>
+        <div class="cc-label">Phone</div>
+        <div class="cc-value">+507 6480 3813</div>
+      </a>
+      <a href="https://linkedin.com/in/melaniebonilla" target="_blank" class="contact-card">
+        <div class="cc-icon">💼</div>
+        <div class="cc-label">LinkedIn</div>
+        <div class="cc-value">linkedin.com/in/melaniebonilla</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Crafted with intention · <span>Melanie Bonilla</span> · Panama City, 2025
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; cursor.style.left = mx + 'px'; cursor.style.top = my + 'px'; });
+  function animRing() { rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12; ring.style.left = rx + 'px'; ring.style.top = ry + 'px'; requestAnimationFrame(animRing); }
+  animRing();
+  document.querySelectorAll('a, button, .skill-card, .tl-item, .stat-card').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.style.width = '18px'; cursor.style.height = '18px'; ring.style.width = '52px'; ring.style.height = '52px'; ring.style.opacity = '0.3'; });
+    el.addEventListener('mouseleave', () => { cursor.style.width = '10px'; cursor.style.height = '10px'; ring.style.width = '36px'; ring.style.height = '36px'; ring.style.opacity = '0.6'; });
+  });
+
+  // Nav scroll
+  const nav = document.getElementById('navbar');
+  window.addEventListener('scroll', () => { nav.classList.toggle('scrolled', scrollY > 60); });
+
+  // Marquee
+  const items = ['Salesforce Marketing Cloud','Veeva Vault','Omnichannel Strategy','AI Automation','SEO / SEM','HubSpot','Google Analytics','Customer Journey Mapping','Pharma Marketing','Fintech Growth','Inbound Marketing','Content Strategy','Lead Generation','Performance Marketing','Email Journeys','Brand Development','Data Analytics','Conversion Optimization'];
+  const track = document.getElementById('marqueeTrack');
+  const full = [...items, ...items].map(i => `<span class="marquee-item">${i}<span>◆</span></span>`).join('');
+  track.innerHTML = full + full;
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // Animated numbers
+  function animateNum(el, target, duration = 1800) {
+    let start = null;
+    const step = ts => {
+      if (!start) start = ts;
+      const progress = Math.min((ts - start) / duration, 1);
+      const val = Math.floor(progress * target);
+      el.textContent = val + (el.dataset.suffix || '');
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+  const numObs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const nums = e.target.querySelectorAll('.stat-number');
+        nums.forEach(n => {
+          const raw = n.textContent;
+          const num = parseInt(raw);
+          const suffix = raw.replace(/[0-9]/g, '');
+          n.dataset.suffix = suffix;
+          animateNum(n, num);
+        });
+        numObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  const heroStats = document.querySelector('.hero-stats');
+  if (heroStats) numObs.observe(heroStats);
+</script>
+</body>
+</html>
