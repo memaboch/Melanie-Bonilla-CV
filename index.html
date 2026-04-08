@@ -942,11 +942,19 @@ const hs=document.querySelector('.hero-stats');
 if(hs) numObs.observe(hs);
 
 // ── Language toggle ──────────────────────────────────────
-let lang='en';
-function toggleLang(){
-  lang=lang==='en'?'es':'en';
-  document.documentElement.setAttribute('data-lang',lang);
-  document.getElementById('langBtn').textContent=lang==='en'?'ES':'EN';
+// Detect ?lang= param on load
+let lang = (new URLSearchParams(window.location.search).get('lang') === 'es') ? 'es' : 'en';
+document.documentElement.setAttribute('data-lang', lang);
+document.getElementById('langBtn').textContent = lang === 'en' ? 'ES' : 'EN';
+
+function toggleLang() {
+  lang = lang === 'en' ? 'es' : 'en';
+  document.documentElement.setAttribute('data-lang', lang);
+  document.getElementById('langBtn').textContent = lang === 'en' ? 'ES' : 'EN';
+  // Keep URL in sync so the current language is always shareable
+  const u = new URL(window.location);
+  u.searchParams.set('lang', lang);
+  window.history.replaceState({}, '', u);
 }
 </script>
 </body>
