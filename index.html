@@ -548,134 +548,190 @@ footer b{ color:var(--gold); font-weight:400; }
 .reveal:nth-child(6){ transition-delay:.40s; }
 
 
-/* ─── SELECTED WORK ──────────────────────────────────── */
-#work{{ background:var(--navy); }}
-#work .eyebrow{{ color:var(--gold-lt); }}
-#work .h2{{ color:var(--white); }}
+/* ─── SELECTED WORK (case study) ────────────────────── */
+#work{ background: #070f1d; }
+#work .eyebrow{ color: var(--gold-lt); }
+#work .h2{ color: var(--white); }
 
-.work-grid{{
-  display:grid; grid-template-columns:1fr 1fr; gap:28px;
-}}
-.work-card{{
-  background:rgba(255,255,255,.04);
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:10px; padding:36px 32px;
-  position:relative; overflow:hidden;
-  transition:background .4s var(--ease-expo), transform .4s var(--ease-expo), border-color .4s;
-  cursor:default;
-}}
-.work-card.featured{{ grid-column:span 2; background:rgba(201,146,42,.07); border-color:rgba(201,146,42,.22); }}
-.work-card::before{{
-  content:''; position:absolute;
-  top:0; left:0; right:0; height:3px;
-  transition:opacity .4s;
-  opacity:0;
-}}
-.work-card.green::before{{ background:linear-gradient(90deg,#22c55e,#16a34a); }}
-.work-card.yellow::before{{ background:linear-gradient(90deg,#eab308,#ca8a04); }}
-.work-card.blue::before{{ background:linear-gradient(90deg,#3b82f6,#2563eb); }}
-.work-card.orange::before{{ background:linear-gradient(90deg,#f97316,#ea580c); }}
-.work-card.purple::before{{ background:linear-gradient(90deg,#a855f7,#9333ea); }}
-.work-card:hover{{ background:rgba(255,255,255,.08); transform:translateY(-4px); border-color:rgba(201,146,42,.3); }}
-.work-card:hover::before{{ opacity:1; }}
+.case-list{ display:flex; flex-direction:column; gap:80px; }
 
-.work-badge{{
-  display:inline-flex; align-items:center; gap:8px;
-  background:rgba(255,255,255,.07); border:1px solid rgba(255,255,255,.12);
-  border-radius:20px; padding:5px 14px;
-  font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
-  color:rgba(255,255,255,.55); margin-bottom:20px;
-}}
-.work-badge-dot{{
-  width:7px; height:7px; border-radius:50%; flex-shrink:0;
-}}
-.green-dot{{ background:#22c55e; box-shadow:0 0 6px #22c55e; }}
-.yellow-dot{{ background:#eab308; box-shadow:0 0 6px #eab308; }}
-.blue-dot{{ background:#3b82f6; box-shadow:0 0 6px #3b82f6; }}
-.orange-dot{{ background:#f97316; box-shadow:0 0 6px #f97316; }}
-.purple-dot{{ background:#a855f7; box-shadow:0 0 6px #a855f7; }}
+.case{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+.case.reverse{ direction:rtl; }
+.case.reverse > *{ direction:ltr; }
 
-.work-title{{
+/* Browser mockup */
+.browser-wrap{ position:relative; }
+.browser-frame{
+  background:#1a2540;
+  border-radius:10px;
+  overflow:hidden;
+  border:1px solid rgba(255,255,255,.1);
+  box-shadow:0 32px 80px rgba(0,0,0,.55), 0 0 0 1px rgba(255,255,255,.06);
+}
+.browser-bar{
+  background:#111c33;
+  padding:10px 16px;
+  display:flex; align-items:center; gap:10px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.browser-dots{ display:flex; gap:6px; }
+.browser-dots span{
+  width:10px; height:10px; border-radius:50%;
+}
+.bd-r{ background:#ff5f57; }
+.bd-y{ background:#febc2e; }
+.bd-g{ background:#28c840; }
+.browser-url{
+  flex:1; background:rgba(255,255,255,.07); border-radius:4px;
+  padding:4px 12px; font-family:'DM Mono',monospace;
+  font-size:11px; color:rgba(255,255,255,.4); letter-spacing:.04em;
+  white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+}
+.browser-preview{
+  aspect-ratio:16/10; overflow:hidden; position:relative;
+  background:#0d1a2e;
+}
+.browser-preview iframe{
+  width:200%; height:200%;
+  transform:scale(.5); transform-origin:top left;
+  border:none; pointer-events:none;
+}
+.browser-preview .preview-fallback{
+  position:absolute; inset:0;
+  background:linear-gradient(135deg,#0d1a2e,#1b3a6b);
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:16px; padding:32px;
+}
+.pf-domain{
+  font-family:'DM Mono',monospace; font-size:13px;
+  color:var(--gold-lt); letter-spacing:.1em;
+}
+.pf-desc{ font-size:13px; color:rgba(255,255,255,.4); text-align:center; line-height:1.5; }
+
+/* Metric pills on top of mockup */
+.case-metrics{
+  position:absolute;
+  bottom:-20px; left:20px; right:20px;
+  display:flex; gap:10px; flex-wrap:wrap;
+}
+.metric-pill{
+  background:var(--navy2);
+  border:1px solid rgba(201,146,42,.3);
+  border-radius:20px; padding:6px 14px;
+  display:flex; align-items:center; gap:8px;
+  box-shadow:0 4px 16px rgba(0,0,0,.4);
+}
+.metric-num{
   font-family:'Cormorant Garamond',serif;
-  font-size:clamp(20px,2vw,25px); font-weight:500;
-  color:var(--white); line-height:1.2; margin-bottom:6px;
-}}
-.work-company{{
-  font-size:12px; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
-  color:var(--gold-lt); margin-bottom:18px;
-}}
-.work-overview{{
-  font-size:14px; line-height:1.72; color:rgba(255,255,255,.58);
-  margin-bottom:24px;
-  padding-bottom:20px;
+  font-size:18px; font-weight:600; color:var(--gold-lt); line-height:1;
+}
+.metric-lbl{ font-size:10.5px; color:rgba(255,255,255,.5); letter-spacing:.06em; line-height:1.3; }
+
+/* Case content */
+.case-content{ padding-top:8px; }
+.case-category{
+  display:inline-flex; align-items:center; gap:8px;
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1);
+  border-radius:20px; padding:5px 14px; margin-bottom:18px;
+  font-size:11px; font-weight:500; letter-spacing:.1em; text-transform:uppercase;
+  color:rgba(255,255,255,.5);
+}
+.case-category-dot{ width:7px; height:7px; border-radius:50%; flex-shrink:0; }
+.case-title{
+  font-family:'Cormorant Garamond',serif;
+  font-size:clamp(26px,2.5vw,34px); font-weight:400;
+  color:var(--white); line-height:1.15; margin-bottom:6px;
+}
+.case-company{
+  font-size:12px; font-weight:600; letter-spacing:.12em; text-transform:uppercase;
+  color:var(--gold-lt); margin-bottom:20px;
+}
+.case-summary{
+  font-size:14.5px; line-height:1.78; color:rgba(255,255,255,.58);
+  margin-bottom:28px;
+  padding-bottom:24px;
   border-bottom:1px solid rgba(255,255,255,.07);
-}}
-.work-cols{{ display:grid; grid-template-columns:1fr 1fr; gap:24px; }}
-.work-col-title{{
-  font-size:10.5px; font-weight:700; letter-spacing:.16em; text-transform:uppercase;
-  color:var(--gold); margin-bottom:12px;
-}}
-.work-list{{ list-style:none; }}
-.work-list li{{
-  font-size:13px; line-height:1.65; color:rgba(255,255,255,.58);
-  padding:5px 0; border-bottom:1px solid rgba(255,255,255,.04);
+}
+.case-blocks{ display:flex; flex-direction:column; gap:20px; margin-bottom:24px; }
+.case-block-title{
+  font-size:10.5px; font-weight:700; letter-spacing:.18em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:10px;
+}
+.case-block ul{ list-style:none; }
+.case-block li{
+  font-size:13.5px; line-height:1.68; color:rgba(255,255,255,.57);
+  padding:5px 0; display:flex; gap:10px;
+  border-bottom:1px solid rgba(255,255,255,.04);
+}
+.case-block li::before{ content:'▸'; color:var(--gold); flex-shrink:0; font-size:11px; margin-top:2px; }
+.case-insight{
+  background:rgba(201,146,42,.09); border:1px solid rgba(201,146,42,.22);
+  border-radius:6px; padding:16px 18px; margin-top:4px;
   display:flex; gap:10px;
-}}
-.work-list li::before{{ content:'▸'; color:var(--gold); flex-shrink:0; font-size:11px; margin-top:1px; }}
-.work-tools{{
-  display:flex; flex-wrap:wrap; gap:7px; margin-top:22px;
-  padding-top:18px; border-top:1px solid rgba(255,255,255,.07);
-}}
-.work-tool{{
-  background:rgba(201,146,42,.1); border:1px solid rgba(201,146,42,.2);
+}
+.case-insight-icon{ font-size:15px; flex-shrink:0; margin-top:1px; }
+.case-insight p{ font-size:13px; line-height:1.65; color:rgba(255,255,255,.62); font-style:italic; }
+.case-insight p b{ color:var(--gold-lt); font-style:normal; }
+.case-tags{ display:flex; flex-wrap:wrap; gap:7px; margin-bottom:20px; }
+.case-tag{
+  background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.1);
   padding:3px 11px; border-radius:2px;
   font-size:10.5px; letter-spacing:.07em; text-transform:uppercase;
-  color:var(--gold-lt);
-}}
-.work-insight{{
-  background:rgba(201,146,42,.1); border:1px solid rgba(201,146,42,.25);
-  border-radius:6px; padding:18px 20px; margin-top:22px;
-  display:flex; gap:12px; align-items:flex-start;
-}}
-.work-insight-icon{{ font-size:16px; flex-shrink:0; margin-top:1px; }}
-.work-insight-text{{ font-size:13px; line-height:1.65; color:rgba(255,255,255,.65); font-style:italic; }}
-.work-insight-text b{{ color:var(--gold-lt); font-style:normal; }}
-.work-link{{
-  display:inline-flex; align-items:center; gap:6px;
-  font-size:12px; color:var(--gold-lt); text-decoration:none;
-  border-bottom:1px solid rgba(232,184,96,.3);
-  padding-bottom:1px; margin-top:12px;
+  color:rgba(255,255,255,.45);
+}
+.case-link{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:12.5px; font-weight:500; color:var(--gold-lt);
+  text-decoration:none; letter-spacing:.04em;
+  border-bottom:1px solid rgba(232,184,96,.3); padding-bottom:2px;
   transition:color .2s, border-color .2s;
-}}
-.work-link:hover{{ color:var(--white); border-color:rgba(255,255,255,.4); }}
+}
+.case-link:hover{ color:var(--white); border-color:rgba(255,255,255,.4); }
+.case-links{ display:flex; gap:20px; flex-wrap:wrap; align-items:center; }
+
+/* GSK Cloud Pages special callout */
+.cloudpage-demo{
+  margin-top:20px;
+  background:rgba(34,197,94,.07); border:1px solid rgba(34,197,94,.2);
+  border-radius:8px; padding:18px 20px;
+  display:flex; gap:12px; align-items:flex-start;
+}
+.cloudpage-demo .cp-icon{ font-size:18px; flex-shrink:0; }
+.cloudpage-demo p{ font-size:13px; color:rgba(255,255,255,.62); line-height:1.65; }
+.cloudpage-demo p b{ color:#86efac; font-weight:600; }
+
+/* Divider between cases */
+.case-divider{
+  border:none; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(201,146,42,.2),transparent);
+  margin:0;
+}
 
 /* ─── WHAT I BRING ───────────────────────────────────── */
-#brings{{ background:var(--cream); }}
-.brings-grid{{
-  display:grid; grid-template-columns:repeat(3,1fr); gap:22px;
-}}
-.bring-card{{
-  background:var(--white);
-  border:1px solid rgba(13,31,60,.07);
+#brings{ background:var(--cream); }
+.brings-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:22px; }
+.bring-card{
+  background:var(--white); border:1px solid rgba(13,31,60,.07);
   border-radius:10px; padding:30px 26px;
   display:flex; gap:16px; align-items:flex-start;
   transition:transform .35s var(--ease-expo), box-shadow .35s var(--ease-expo), border-color .35s;
-}}
-.bring-card:hover{{ transform:translateY(-4px); box-shadow:0 14px 36px rgba(13,31,60,.09); border-color:rgba(201,146,42,.25); }}
-.bring-icon{{ font-size:26px; flex-shrink:0; margin-top:2px; }}
-.bring-title{{ font-size:14.5px; font-weight:600; color:var(--navy); margin-bottom:6px; line-height:1.3; }}
-.bring-desc{{ font-size:13px; line-height:1.65; color:var(--muted); }}
+}
+.bring-card:hover{ transform:translateY(-4px); box-shadow:0 14px 36px rgba(13,31,60,.09); border-color:rgba(201,146,42,.25); }
+.bring-icon{ font-size:26px; flex-shrink:0; margin-top:2px; }
+.bring-title{ font-size:14.5px; font-weight:600; color:var(--navy); margin-bottom:6px; line-height:1.3; }
+.bring-desc{ font-size:13px; line-height:1.65; color:var(--muted); }
 
-@media(max-width:1024px){{
-  .work-grid{{ grid-template-columns:1fr; }}
-  .work-card.featured{{ grid-column:span 1; }}
-  .work-cols{{ grid-template-columns:1fr; gap:16px; }}
-  .brings-grid{{ grid-template-columns:1fr 1fr; }}
-}}
-@media(max-width:680px){{
-  .brings-grid{{ grid-template-columns:1fr; }}
-  .work-card{{ padding:26px 20px; }}
-}}
+@media(max-width:1024px){
+  .case{ grid-template-columns:1fr; gap:40px; }
+  .case.reverse{ direction:ltr; }
+  .brings-grid{ grid-template-columns:1fr 1fr; }
+  .case-metrics{ position:static; margin-top:16px; }
+  .browser-wrap{ margin-bottom:0; }
+}
+@media(max-width:680px){
+  .brings-grid{ grid-template-columns:1fr; }
+  .case-links{ flex-direction:column; gap:12px; }
+}
 
 /* ─── RESPONSIVE ────────────────────────────────────────── */
 @media(max-width:1024px){
@@ -966,117 +1022,229 @@ footer b{ color:var(--gold); font-weight:400; }
 <div id="work" class="sec-full">
   <div class="sec-inner">
     <p class="eyebrow reveal"><span class="en">Selected Work</span><span class="es">Proyectos Destacados</span></p>
-    <h2 class="h2 h2-light reveal en">Campaigns, brands &amp;<br><em>results I've built</em></h2>
-    <h2 class="h2 h2-light reveal es">Campañas, marcas y<br><em>resultados que he construido</em></h2>
-    <div class="work-grid">
+    <h2 class="h2 h2-light reveal en">From strategy to<br><em>shipped products</em></h2>
+    <h2 class="h2 h2-light reveal es">De la estrategia a<br><em>productos lanzados</em></h2>
 
-      <!-- GSK – FEATURED -->
-      <div class="work-card featured green reveal">
-        <div class="work-badge"><span class="work-badge-dot green-dot"></span>Pharma · CARICAM</div>
-        <div class="work-title"><span class="en">Omnichannel Marketing Campaigns</span><span class="es">Campañas de Marketing Omnicanal</span></div>
-        <div class="work-company">GSK · <span class="en">Omnichannel Marketing Manager</span><span class="es">Gerente de Marketing Omnicanal</span></div>
-        <p class="work-overview en">Led the planning and execution of omnichannel campaigns targeting healthcare professionals (HCPs) across multiple markets in Central America and the Caribbean — balancing brand impact with strict pharmaceutical compliance.</p>
-        <p class="work-overview es">Lideró la planificación y ejecución de campañas omnicanal dirigidas a profesionales de la salud en múltiples mercados de Centroamérica y el Caribe — equilibrando impacto de marca con cumplimiento farmacéutico estricto.</p>
-        <div class="work-cols">
-          <div>
-            <div class="work-col-title"><span class="en">What I Did</span><span class="es">Lo que hice</span></div>
-            <ul class="work-list">
-              <li><span class="en">Developed &amp; deployed email journeys in Salesforce Marketing Cloud</span><span class="es">Desarrollé y desplegué journeys de email en Salesforce Marketing Cloud</span></li>
-              <li><span class="en">Managed content workflows in Veeva Vault &amp; ContentLab</span><span class="es">Gestioné flujos de contenido en Veeva Vault y ContentLab</span></li>
-              <li><span class="en">Applied HCP segmentation by specialty and comorbidities</span><span class="es">Apliqué segmentación de médicos por especialidad y comorbilidades</span></li>
-              <li><span class="en">Coordinated cross-functional teams for content approval &amp; delivery</span><span class="es">Coordiné equipos multifuncionales para aprobación y entrega de contenidos</span></li>
-            </ul>
+    <div class="case-list">
+
+      <!-- ── GSK ── -->
+      <div class="case reveal">
+        <div class="browser-wrap">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="browser-dots"><span class="bd-r"></span><span class="bd-y"></span><span class="bd-g"></span></div>
+              <div class="browser-url">gsk.com · Salesforce Marketing Cloud · Cloud Pages</div>
+            </div>
+            <div class="browser-preview">
+              <div class="preview-fallback">
+                <div style="font-size:42px">🏥</div>
+                <div class="pf-domain">GSK CARICAM</div>
+                <div class="pf-desc en">Omnichannel HCP engagement journeys — Salesforce MC · Cloud Pages · Veeva Vault</div>
+                <div class="pf-desc es">Journeys omnicanal para profesionales de la salud — Salesforce MC · Cloud Pages · Veeva Vault</div>
+              </div>
+            </div>
           </div>
-          <div>
-            <div class="work-col-title"><span class="en">Impact</span><span class="es">Impacto</span></div>
-            <ul class="work-list">
-              <li><span class="en">Improved email engagement through personalization &amp; segmentation</span><span class="es">Mejora en el engagement de email mediante personalización y segmentación</span></li>
-              <li><span class="en">Increased campaign efficiency across 8+ CARICAM markets</span><span class="es">Mayor eficiencia de campañas en más de 8 mercados CARICAM</span></li>
-              <li><span class="en">Full compliance in a highly regulated pharma environment</span><span class="es">Cumplimiento total en un entorno farmacéutico altamente regulado</span></li>
-            </ul>
+          <div class="case-metrics">
+            <div class="metric-pill"><div class="metric-num">12+</div><div class="metric-lbl"><span class="en">Journeys<br>deployed</span><span class="es">Journeys<br>lanzados</span></div></div>
+            <div class="metric-pill"><div class="metric-num">8+</div><div class="metric-lbl"><span class="en">CARICAM<br>markets</span><span class="es">Mercados<br>CARICAM</span></div></div>
+            <div class="metric-pill"><div class="metric-num">↑</div><div class="metric-lbl"><span class="en">Email<br>engagement</span><span class="es">Engagement<br>de email</span></div></div>
           </div>
         </div>
-        <div class="work-tools">
-          <span class="work-tool">Salesforce MC</span>
-          <span class="work-tool">Veeva Vault</span>
-          <span class="work-tool">ContentLab</span>
-          <span class="work-tool">Email Marketing</span>
-          <span class="work-tool">CRM</span>
-          <span class="work-tool">HCP Segmentation</span>
-        </div>
-        <div class="work-insight">
-          <span class="work-insight-icon">💡</span>
-          <p class="work-insight-text en"><b>Key Insight:</b> Personalization and segmentation are critical to increasing engagement — especially in regulated industries where content must balance compliance and relevance without losing the human touch.</p>
-          <p class="work-insight-text es"><b>Insight Clave:</b> La personalización y segmentación son determinantes para aumentar el engagement — especialmente en industrias reguladas donde el contenido debe equilibrar cumplimiento y relevancia sin perder el toque humano.</p>
-        </div>
-      </div>
-
-      <!-- UDG – Events -->
-      <div class="work-card yellow reveal">
-        <div class="work-badge"><span class="work-badge-dot yellow-dot"></span><span class="en">Real Estate · Events</span><span class="es">Inmobiliario · Eventos</span></div>
-        <div class="work-title"><span class="en">Event Marketing &amp; Brand Activation</span><span class="es">Marketing de Eventos y Activación de Marca</span></div>
-        <div class="work-company">Urban Development Group · <span class="en">Marketing &amp; Events Coordinator</span><span class="es">Coordinadora de Marketing y Eventos</span></div>
-        <p class="work-overview en">Planned and executed large-scale student fairs and brand activations to increase visibility and engagement among target audiences.</p>
-        <p class="work-overview es">Planificó y ejecutó ferias estudiantiles de gran escala y activaciones de marca para aumentar la visibilidad y el engagement entre audiencias objetivo.</p>
-        <div class="work-col-title"><span class="en">What I Did</span><span class="es">Lo que hice</span></div>
-        <ul class="work-list">
-          <li><span class="en">Conceptualized &amp; organized on-site events from ideation to execution</span><span class="es">Conceptualizó y organizó eventos presenciales de inicio a fin</span></li>
-          <li><span class="en">Managed logistics, vendor coordination &amp; timelines</span><span class="es">Gestionó logística, coordinación de proveedores y cronogramas</span></li>
-          <li><span class="en">Designed promotional strategies to drive attendance</span><span class="es">Diseñó estrategias de promoción para impulsar la asistencia</span></li>
-          <li><span class="en">Created brand experiences aligned with brand identity</span><span class="es">Creó experiencias de marca coherentes con la identidad corporativa</span></li>
-        </ul>
-        <a href="https://www.instagram.com/p/B0q8g9lBDWE/" target="_blank" class="work-link">
-          <span class="en">View activation example</span><span class="es">Ver ejemplo de activación</span> ↗
-        </a>
-      </div>
-
-      <!-- Casco – Website -->
-      <div class="work-card blue reveal">
-        <div class="work-badge"><span class="work-badge-dot blue-dot"></span><span class="en">Real Estate · Digital</span><span class="es">Inmobiliario · Digital</span></div>
-        <div class="work-title"><span class="en">Website Design &amp; Digital Presence</span><span class="es">Diseño Web y Presencia Digital</span></div>
-        <div class="work-company">Casco Development · <span class="en">Marketing Manager</span><span class="es">Gerente de Marketing</span></div>
-        <p class="work-overview en">Led the design and development of corporate websites focused on UX, branding, and digital presence — including Casco Development and Blue Point.</p>
-        <p class="work-overview es">Lideró el diseño y desarrollo de sitios web corporativos con foco en UX, branding y presencia digital — incluyendo Casco Development y Blue Point.</p>
-        <div class="work-col-title"><span class="en">What I Did</span><span class="es">Lo que hice</span></div>
-        <ul class="work-list">
-          <li><span class="en">Defined website structure &amp; user journey architecture</span><span class="es">Definió la estructura web y la arquitectura del user journey</span></li>
-          <li><span class="en">Designed visual layout aligned with brand identity</span><span class="es">Diseñó la maqueta visual alineada con la identidad de marca</span></li>
-          <li><span class="en">Collaborated on content creation &amp; messaging strategy</span><span class="es">Colaboró en la creación de contenido y estrategia de mensajería</span></li>
-          <li><span class="en">Ensured responsive, user-friendly design across devices</span><span class="es">Garantizó diseño responsivo y amigable en todos los dispositivos</span></li>
-        </ul>
-        <div class="work-tools" style="margin-top:18px;">
-          <span class="work-tool">UX Strategy</span><span class="work-tool">Brand Design</span><span class="work-tool">Content Strategy</span><span class="work-tool">Responsive</span>
+        <div class="case-content" style="padding-top:32px;">
+          <div class="case-category"><span class="case-category-dot" style="background:#22c55e;box-shadow:0 0 6px #22c55e"></span>Pharma · CARICAM</div>
+          <div class="case-title"><span class="en">Omnichannel HCP Marketing</span><span class="es">Marketing Omnicanal para Profesionales de Salud</span></div>
+          <div class="case-company">GSK · <span class="en">Omnichannel Marketing Manager</span><span class="es">Gerente de Marketing Omnicanal</span></div>
+          <p class="case-summary en">Led the end-to-end design and deployment of omnichannel campaigns for healthcare professionals across Central America and the Caribbean — combining Salesforce Marketing Cloud, Cloud Pages, and Veeva Vault to deliver personalized, compliant, multi-touchpoint experiences at regional scale.</p>
+          <p class="case-summary es">Lideró el diseño y despliegue end-to-end de campañas omnicanal para profesionales de la salud en Centroamérica y el Caribe — combinando Salesforce Marketing Cloud, Cloud Pages y Veeva Vault para entregar experiencias personalizadas, en cumplimiento y multi-touchpoint a escala regional.</p>
+          <div class="case-blocks">
+            <div class="case-block">
+              <div class="case-block-title"><span class="en">What I Built</span><span class="es">Lo que construí</span></div>
+              <ul>
+                <li><span class="en">Architected automated email journeys in Salesforce MC with trigger logic based on HCP specialty, comorbidity, and engagement behavior</span><span class="es">Diseñé journeys de email automatizados en Salesforce MC con lógica de triggers basada en especialidad, comorbilidad y comportamiento de engagement del médico</span></li>
+                <li><span class="en">Built Cloud Pages as interactive, personalized landing experiences linked to each journey — extending the digital touchpoint beyond email</span><span class="es">Construí Cloud Pages como experiencias landing interactivas y personalizadas vinculadas a cada journey — extendiendo el touchpoint digital más allá del email</span></li>
+                <li><span class="en">Managed full content lifecycle in Veeva Vault — from briefing through MLR approval to publication — ensuring zero compliance gaps</span><span class="es">Gestioné el ciclo de vida completo del contenido en Veeva Vault — desde el briefing hasta la aprobación MLR y publicación — asegurando cero brechas de cumplimiento</span></li>
+                <li><span class="en">Segmented audiences by specialty and comorbidities to deliver relevant messaging per therapeutic area</span><span class="es">Segmenté audiencias por especialidad y comorbilidades para entregar mensajes relevantes por área terapéutica</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="cloudpage-demo">
+            <span class="cp-icon">✦</span>
+            <p class="en"><b>Cloud Pages innovation:</b> Moved beyond static email blasts by building linked Cloud Pages that gave HCPs an interactive, brand-consistent digital experience — personalised per segment, tracked per click, compliant per market.</p>
+            <p class="es"><b>Innovación con Cloud Pages:</b> Trascendí el email estático construyendo Cloud Pages vinculadas que daban a los médicos una experiencia digital interactiva y coherente con la marca — personalizada por segmento, rastreada por clic, en cumplimiento por mercado.</p>
+          </div>
+          <div class="case-tags" style="margin-top:20px;">
+            <span class="case-tag">Salesforce MC</span><span class="case-tag">Cloud Pages</span><span class="case-tag">Veeva Vault</span>
+            <span class="case-tag">ContentLab</span><span class="case-tag">HCP Segmentation</span><span class="case-tag">MLR Compliance</span>
+          </div>
         </div>
       </div>
 
-      <!-- SOLVE + Corporación El Sol – side by side mini cards -->
-      <div class="work-card orange reveal">
-        <div class="work-badge"><span class="work-badge-dot orange-dot"></span><span class="en">Digital Marketing</span><span class="es">Marketing Digital</span></div>
-        <div class="work-title"><span class="en">Digital Marketing &amp; Content</span><span class="es">Marketing Digital y Contenido</span></div>
-        <div class="work-company">SOLVE Panamá</div>
-        <p class="work-overview en">Supported digital marketing initiatives and content development across campaigns — enhancing content consistency and brand communication across channels.</p>
-        <p class="work-overview es">Apoyó iniciativas de marketing digital y desarrollo de contenido en campañas — mejorando la consistencia de contenido y la comunicación de marca en todos los canales.</p>
-        <ul class="work-list">
-          <li><span class="en">Content creation for digital channels</span><span class="es">Creación de contenido para canales digitales</span></li>
-          <li><span class="en">Campaign execution &amp; coordination support</span><span class="es">Apoyo en ejecución y coordinación de campañas</span></li>
-          <li><span class="en">Brand communication strategy</span><span class="es">Estrategia de comunicación de marca</span></li>
-        </ul>
+      <hr class="case-divider">
+
+      <!-- ── Casco Development ── -->
+      <div class="case reverse reveal">
+        <div class="browser-wrap">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="browser-dots"><span class="bd-r"></span><span class="bd-y"></span><span class="bd-g"></span></div>
+              <div class="browser-url">bluepointpanama.com · cascodevelopment.com</div>
+            </div>
+            <div class="browser-preview">
+              <div class="preview-fallback">
+                <div style="font-size:42px">🏛️</div>
+                <div class="pf-domain">bluepointpanama.com</div>
+                <div class="pf-desc en">Bilingual real estate platform · 5 luxury projects · Zoho CRM integration</div>
+                <div class="pf-desc es">Plataforma inmobiliaria bilingüe · 5 proyectos de lujo · Integración Zoho CRM</div>
+              </div>
+            </div>
+          </div>
+          <div class="case-metrics">
+            <div class="metric-pill"><div class="metric-num">2</div><div class="metric-lbl"><span class="en">Websites<br>launched</span><span class="es">Sitios web<br>lanzados</span></div></div>
+            <div class="metric-pill"><div class="metric-num">5</div><div class="metric-lbl"><span class="en">Luxury<br>projects</span><span class="es">Proyectos<br>de lujo</span></div></div>
+            <div class="metric-pill"><div class="metric-num">🔗</div><div class="metric-lbl"><span class="en">Marketing–<br>Sales CRM</span><span class="es">CRM Mktg–<br>Ventas</span></div></div>
+          </div>
+        </div>
+        <div class="case-content" style="padding-top:32px;">
+          <div class="case-category"><span class="case-category-dot" style="background:#3b82f6;box-shadow:0 0 6px #3b82f6"></span><span class="en">Real Estate · Digital Presence</span><span class="es">Inmobiliario · Presencia Digital</span></div>
+          <div class="case-title"><span class="en">2 Brand Platforms + CRM Integration</span><span class="es">2 Plataformas de Marca + Integración CRM</span></div>
+          <div class="case-company">Casco Development · <span class="en">Marketing Manager</span><span class="es">Gerente de Marketing</span></div>
+          <p class="case-summary en">Led the strategy, design, and launch of two corporate websites — Blue Point Panamá and Casco Development — and implemented Zoho CRM to create a closed-loop system connecting digital marketing actions directly to the sales pipeline.</p>
+          <p class="case-summary es">Lideró la estrategia, diseño y lanzamiento de dos sitios web corporativos — Blue Point Panamá y Casco Development — e implementó Zoho CRM para crear un sistema de circuito cerrado que conectaba las acciones de marketing digital directamente al pipeline de ventas.</p>
+          <div class="case-blocks">
+            <div class="case-block">
+              <div class="case-block-title"><span class="en">What I Built</span><span class="es">Lo que construí</span></div>
+              <ul>
+                <li><span class="en">Defined architecture, user journeys, and visual identity for two bilingual real estate platforms showcasing 5 luxury projects</span><span class="es">Definí la arquitectura, user journeys e identidad visual para dos plataformas inmobiliarias bilingües que presentaban 5 proyectos de lujo</span></li>
+                <li><span class="en">Implemented Zoho CRM connecting paid ads, organic traffic, and form leads to a unified sales dashboard — enabling data-driven follow-up</span><span class="es">Implementé Zoho CRM conectando anuncios pagados, tráfico orgánico y leads de formularios a un dashboard de ventas unificado — habilitando seguimiento basado en datos</span></li>
+                <li><span class="en">Created content strategy and messaging that positioned Casco Antiguo properties as premium lifestyle investments</span><span class="es">Creé la estrategia de contenido y mensajería que posicionó las propiedades del Casco Antiguo como inversiones de estilo de vida premium</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="case-tags">
+            <span class="case-tag">Zoho CRM</span><span class="case-tag">Web Strategy</span><span class="case-tag">UX Architecture</span>
+            <span class="case-tag">Lead Gen</span><span class="case-tag">Bilingual</span><span class="case-tag">Digital Presence</span>
+          </div>
+          <div class="case-links">
+            <a href="https://bluepointpanama.com/en/home/" target="_blank" class="case-link">bluepointpanama.com ↗</a>
+            <a href="https://www.cascodevelopment.com/" target="_blank" class="case-link">cascodevelopment.com ↗</a>
+          </div>
+        </div>
       </div>
 
-      <div class="work-card purple reveal">
-        <div class="work-badge"><span class="work-badge-dot purple-dot"></span><span class="en">Marketing &amp; Operations</span><span class="es">Marketing y Operaciones</span></div>
-        <div class="work-title"><span class="en">Marketing &amp; Operations Support</span><span class="es">Soporte de Marketing y Operaciones</span></div>
-        <div class="work-company">Corporación El Sol</div>
-        <p class="work-overview en">Supported marketing and operational initiatives across multiple business areas — strengthening execution of marketing initiatives and cross-team coordination.</p>
-        <p class="work-overview es">Apoyó iniciativas de marketing y operaciones en múltiples áreas de negocio — fortaleciendo la ejecución de iniciativas de marketing y la coordinación entre equipos.</p>
-        <ul class="work-list">
-          <li><span class="en">Campaign execution &amp; project follow-up</span><span class="es">Ejecución de campañas y seguimiento de proyectos</span></li>
-          <li><span class="en">Internal coordination across departments</span><span class="es">Coordinación interna entre departamentos</span></li>
-          <li><span class="en">Brand visibility improvement</span><span class="es">Mejora de visibilidad de marca</span></li>
-        </ul>
+      <hr class="case-divider">
+
+      <!-- ── SOLVE ── -->
+      <div class="case reveal">
+        <div class="browser-wrap">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="browser-dots"><span class="bd-r"></span><span class="bd-y"></span><span class="bd-g"></span></div>
+              <div class="browser-url">solve.pa</div>
+            </div>
+            <div class="browser-preview">
+              <div class="preview-fallback">
+                <div style="font-size:42px">💸</div>
+                <div class="pf-domain">solve.pa</div>
+                <div class="pf-desc en">100% digital fintech product launch · Personal loans online · Instagram brand positioning</div>
+                <div class="pf-desc es">Lanzamiento de producto fintech 100% digital · Préstamos personales online · Posicionamiento de marca en Instagram</div>
+              </div>
+            </div>
+          </div>
+          <div class="case-metrics">
+            <div class="metric-pill"><div class="metric-num">100%</div><div class="metric-lbl"><span class="en">Digital<br>transactability</span><span class="es">Transaccio-<br>nalidad digital</span></div></div>
+            <div class="metric-pill"><div class="metric-num">0→1</div><div class="metric-lbl"><span class="en">Brand<br>launched</span><span class="es">Marca<br>lanzada</span></div></div>
+          </div>
+        </div>
+        <div class="case-content" style="padding-top:32px;">
+          <div class="case-category"><span class="case-category-dot" style="background:#f97316;box-shadow:0 0 6px #f97316"></span>Fintech · Product Launch</div>
+          <div class="case-title"><span class="en">Full-Stack Fintech Brand Launch</span><span class="es">Lanzamiento Completo de Marca Fintech</span></div>
+          <div class="case-company">SOLVE Panamá · <span class="en">Marketing Lead</span><span class="es">Responsable de Marketing</span></div>
+          <p class="case-summary en">Led the go-to-market strategy and execution for SOLVE, a fintech offering 100% online personal loans in Panama — from zero to a fully functioning digital brand, including website, product positioning, and social media presence built from scratch.</p>
+          <p class="case-summary es">Lideró la estrategia go-to-market y ejecución para SOLVE, una fintech de préstamos personales 100% online en Panamá — desde cero hasta una marca digital completamente funcional, incluyendo sitio web, posicionamiento de producto y presencia en redes sociales construida desde cero.</p>
+          <div class="case-blocks">
+            <div class="case-block">
+              <div class="case-block-title"><span class="en">What I Built</span><span class="es">Lo que construí</span></div>
+              <ul>
+                <li><span class="en">Defined brand positioning, tone of voice, and visual identity for a challenger fintech in a traditional financial market</span><span class="es">Definí el posicionamiento de marca, tono de voz e identidad visual para una fintech challenger en un mercado financiero tradicional</span></li>
+                <li><span class="en">Led website launch with a 100% digital user flow — from application to disbursement — achieving full digital transactability</span><span class="es">Lideré el lanzamiento del sitio web con un flujo de usuario 100% digital — desde la solicitud hasta el desembolso — logrando transaccionalidad digital completa</span></li>
+                <li><span class="en">Built and positioned the Instagram brand (@solve_panama) from the ground up, targeting Panama's emerging digital lending audience</span><span class="es">Construí y posicioné la marca en Instagram (@solve_panama) desde cero, apuntando a la audiencia panameña de préstamos digitales emergentes</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="case-tags">
+            <span class="case-tag">Go-to-Market</span><span class="case-tag">Brand Launch</span><span class="case-tag">Fintech</span>
+            <span class="case-tag">Digital UX</span><span class="case-tag">Social Media</span><span class="case-tag">Product Marketing</span>
+          </div>
+          <div class="case-links">
+            <a href="https://solve.pa/" target="_blank" class="case-link">solve.pa ↗</a>
+            <a href="https://www.instagram.com/solve_panama/" target="_blank" class="case-link">@solve_panama ↗</a>
+          </div>
+        </div>
       </div>
 
-    </div>
+      <hr class="case-divider">
+
+      <!-- ── Corporación El Sol ── -->
+      <div class="case reverse reveal">
+        <div class="browser-wrap">
+          <div class="browser-frame">
+            <div class="browser-bar">
+              <div class="browser-dots"><span class="bd-r"></span><span class="bd-y"></span><span class="bd-g"></span></div>
+              <div class="browser-url">corporacionelsol.com</div>
+            </div>
+            <div class="browser-preview">
+              <div class="preview-fallback">
+                <div style="font-size:42px">🌟</div>
+                <div class="pf-domain">corporacionelsol.com</div>
+                <div class="pf-desc en">Performance score 32→93 · Bounce rate 20% · Step-by-step lead capture redesign</div>
+                <div class="pf-desc es">Performance score 32→93 · Bounce rate 20% · Rediseño de captura de leads paso a paso</div>
+              </div>
+            </div>
+          </div>
+          <div class="case-metrics">
+            <div class="metric-pill">
+              <div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:14px;font-weight:600;color:rgba(255,255,255,.35);line-height:1;text-decoration:line-through;">32</div>
+                <div class="metric-num" style="font-size:22px;">93</div>
+              </div>
+              <div class="metric-lbl"><span class="en">Performance<br>score</span><span class="es">Score de<br>performance</span></div>
+            </div>
+            <div class="metric-pill"><div class="metric-num">20%</div><div class="metric-lbl"><span class="en">Bounce<br>rate</span><span class="es">Bounce<br>rate</span></div></div>
+            <div class="metric-pill"><div class="metric-num">↑</div><div class="metric-lbl"><span class="en">Lead<br>capture</span><span class="es">Captura<br>de leads</span></div></div>
+          </div>
+        </div>
+        <div class="case-content" style="padding-top:32px;">
+          <div class="case-category"><span class="case-category-dot" style="background:#a855f7;box-shadow:0 0 6px #a855f7"></span>Fintech · <span class="en">UX Transformation</span><span class="es">Transformación UX</span></div>
+          <div class="case-title"><span class="en">Website Transformation & Lead Capture Redesign</span><span class="es">Transformación Web y Rediseño de Captura de Leads</span></div>
+          <div class="case-company">Corporación El Sol · <span class="en">Marketing Lead</span><span class="es">Responsable de Marketing</span></div>
+          <p class="case-summary en">Inherited a non-responsive, single-page website with a long, friction-heavy form that was failing to convert visitors. Redesigned the full digital experience — resulting in a performance score jump from 32 to 93, and a 20% bounce rate that outperforms fintech industry benchmarks by a significant margin.</p>
+          <p class="case-summary es">Recibí un sitio web no responsivo, de una sola página, con un formulario largo y con mucha fricción que no convertía visitantes. Rediseñé la experiencia digital completa — logrando un salto en el score de performance de 32 a 93, y una tasa de rebote del 20% que supera significativamente los benchmarks de la industria fintech.</p>
+          <div class="case-blocks">
+            <div class="case-block">
+              <div class="case-block-title"><span class="en">What I Changed</span><span class="es">Lo que cambié</span></div>
+              <ul>
+                <li><span class="en">Replaced a single long form with a step-by-step progressive lead capture flow — reducing perceived friction and improving completion rates</span><span class="es">Reemplacé un formulario largo único por un flujo de captura de leads progresivo paso a paso — reduciendo la fricción percibida y mejorando las tasas de completado</span></li>
+                <li><span class="en">Rebuilt the site as fully responsive across all devices — critical for Panama's mobile-first financial services audience</span><span class="es">Reconstruí el sitio como completamente responsivo en todos los dispositivos — crítico para la audiencia panameña de servicios financieros mobile-first</span></li>
+                <li><span class="en">Optimized technical performance from score 32 to 93 — improving page load, Core Web Vitals, and overall UX quality signals</span><span class="es">Optimicé el rendimiento técnico de 32 a 93 — mejorando la carga de página, Core Web Vitals y señales generales de calidad UX</span></li>
+              </ul>
+            </div>
+          </div>
+          <div class="case-insight">
+            <span class="case-insight-icon">💡</span>
+            <p class="en"><b>Industry context:</b> A 20% bounce rate in fintech is exceptional — the industry average sits between 45–65%. This signals that the redesigned UX was not only functional but genuinely compelling to users at the decision moment.</p>
+            <p class="es"><b>Contexto de industria:</b> Un bounce rate del 20% en fintech es excepcional — el promedio de la industria está entre 45–65%. Esto indica que la UX rediseñada no solo era funcional, sino genuinamente convincente para los usuarios en el momento de decisión.</p>
+          </div>
+          <div class="case-tags" style="margin-top:16px;">
+            <span class="case-tag">UX Redesign</span><span class="case-tag">Web Performance</span><span class="case-tag">Lead Capture</span>
+            <span class="case-tag">Core Web Vitals</span><span class="case-tag">Responsive</span><span class="case-tag">Conversion</span>
+          </div>
+          <div class="case-links">
+            <a href="https://www.corporacionelsol.com/" target="_blank" class="case-link">corporacionelsol.com ↗</a>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /case-list -->
   </div>
 </div>
 
@@ -1087,30 +1255,12 @@ footer b{ color:var(--gold); font-weight:400; }
     <h2 class="h2 reveal en">What I bring to<br>every <em>organization</em></h2>
     <h2 class="h2 reveal es">Lo que aporto a<br>cada <em>organización</em></h2>
     <div class="brings-grid">
-      <div class="bring-card reveal">
-        <div class="bring-icon">🗺️</div>
-        <div><div class="bring-title"><span class="en">Omnichannel Strategy &amp; Execution</span><span class="es">Estrategia y Ejecución Omnicanal</span></div><p class="bring-desc en">End-to-end omnichannel strategy — from channel architecture to campaign execution — ensuring every touchpoint delivers a coherent, measurable brand experience.</p><p class="bring-desc es">Estrategia omnicanal de extremo a extremo — desde la arquitectura de canales hasta la ejecución de campañas — asegurando que cada touchpoint entregue una experiencia de marca coherente y medible.</p></div>
-      </div>
-      <div class="bring-card reveal">
-        <div class="bring-icon">⚙️</div>
-        <div><div class="bring-title"><span class="en">CRM &amp; Email Marketing Mastery</span><span class="es">Dominio de CRM y Email Marketing</span></div><p class="bring-desc en">Expert-level Salesforce Marketing Cloud and HubSpot — building intelligent, automated journeys that personalize at scale and convert engagement into revenue.</p><p class="bring-desc es">Nivel experto en Salesforce Marketing Cloud y HubSpot — construyendo journeys automatizados inteligentes que personalizan a escala y convierten el engagement en ingresos.</p></div>
-      </div>
-      <div class="bring-card reveal">
-        <div class="bring-icon">✍️</div>
-        <div><div class="bring-title"><span class="en">Content Creation &amp; Campaign Management</span><span class="es">Creación de Contenido y Gestión de Campañas</span></div><p class="bring-desc en">From creative concept to published asset — managing the full content lifecycle across regulated and non-regulated environments with speed and brand integrity.</p><p class="bring-desc es">Del concepto creativo al activo publicado — gestión del ciclo de vida completo del contenido en entornos regulados y no regulados con rapidez e integridad de marca.</p></div>
-      </div>
-      <div class="bring-card reveal">
-        <div class="bring-icon">🎪</div>
-        <div><div class="bring-title"><span class="en">Event Planning &amp; Brand Experiences</span><span class="es">Planificación de Eventos y Experiencias de Marca</span></div><p class="bring-desc en">Designing and executing live brand activations and events that create lasting audience connections — from concept and logistics to post-event measurement.</p><p class="bring-desc es">Diseño y ejecución de activaciones de marca y eventos en vivo que crean conexiones duraderas — desde el concepto y la logística hasta la medición post-evento.</p></div>
-      </div>
-      <div class="bring-card reveal">
-        <div class="bring-icon">🖥️</div>
-        <div><div class="bring-title"><span class="en">Website Design &amp; UX Strategy</span><span class="es">Diseño Web y Estrategia UX</span></div><p class="bring-desc en">Leading digital presence projects — from user journey architecture and visual design to content strategy — delivering websites that convert visitors into leads.</p><p class="bring-desc es">Liderazgo de proyectos de presencia digital — desde la arquitectura del user journey y el diseño visual hasta la estrategia de contenido — entregando sitios que convierten visitas en leads.</p></div>
-      </div>
-      <div class="bring-card reveal">
-        <div class="bring-icon">🤝</div>
-        <div><div class="bring-title"><span class="en">Cross-functional Leadership in Regulated Environments</span><span class="es">Liderazgo Multifuncional en Entornos Regulados</span></div><p class="bring-desc en">Skilled at aligning medical, legal, regulatory, and commercial teams — driving projects forward without losing speed or creative ambition, even under strict compliance frameworks.</p><p class="bring-desc es">Hábil para alinear equipos médicos, legales, regulatorios y comerciales — avanzando proyectos sin perder velocidad ni ambición creativa, incluso bajo marcos de cumplimiento estrictos.</p></div>
-      </div>
+      <div class="bring-card reveal"><div class="bring-icon">🗺️</div><div><div class="bring-title"><span class="en">Omnichannel Strategy &amp; Execution</span><span class="es">Estrategia y Ejecución Omnicanal</span></div><p class="bring-desc en">End-to-end omnichannel strategy ensuring every touchpoint delivers a coherent, measurable brand experience.</p><p class="bring-desc es">Estrategia omnicanal de extremo a extremo asegurando que cada touchpoint entregue una experiencia de marca coherente y medible.</p></div></div>
+      <div class="bring-card reveal"><div class="bring-icon">⚙️</div><div><div class="bring-title"><span class="en">CRM &amp; Marketing Automation</span><span class="es">CRM y Automatización de Marketing</span></div><p class="bring-desc en">Expert-level Salesforce MC and HubSpot — building intelligent automated journeys that personalize at scale.</p><p class="bring-desc es">Nivel experto en Salesforce MC y HubSpot — construyendo journeys automatizados inteligentes que personalizan a escala.</p></div></div>
+      <div class="bring-card reveal"><div class="bring-icon">🚀</div><div><div class="bring-title"><span class="en">Product &amp; Brand Launches</span><span class="es">Lanzamientos de Producto y Marca</span></div><p class="bring-desc en">From zero to live — defining positioning, launching platforms, and building audiences from scratch in competitive markets.</p><p class="bring-desc es">De cero a activo — definiendo posicionamiento, lanzando plataformas y construyendo audiencias desde cero en mercados competitivos.</p></div></div>
+      <div class="bring-card reveal"><div class="bring-icon">🖥️</div><div><div class="bring-title"><span class="en">Website Strategy &amp; UX</span><span class="es">Estrategia Web y UX</span></div><p class="bring-desc en">Leading digital presence projects — from architecture to conversion optimization — that turn visitors into qualified leads.</p><p class="bring-desc es">Proyectos de presencia digital desde la arquitectura hasta la optimización de conversión que convierten visitas en leads calificados.</p></div></div>
+      <div class="bring-card reveal"><div class="bring-icon">📊</div><div><div class="bring-title"><span class="en">Data-Driven Performance</span><span class="es">Performance Basado en Datos</span></div><p class="bring-desc en">Connecting analytics, CRM, and campaign data to build unified dashboards that inform faster, smarter strategic decisions.</p><p class="bring-desc es">Conectando analítica, CRM y datos de campaña para construir dashboards unificados que informan decisiones estratégicas más rápidas e inteligentes.</p></div></div>
+      <div class="bring-card reveal"><div class="bring-icon">🤝</div><div><div class="bring-title"><span class="en">Cross-functional Leadership</span><span class="es">Liderazgo Multifuncional</span></div><p class="bring-desc en">Aligning medical, legal, regulatory, sales, and tech teams toward a shared strategic north — without losing speed or creative ambition.</p><p class="bring-desc es">Alineando equipos médicos, legales, regulatorios, de ventas y tecnología hacia un norte estratégico compartido — sin perder velocidad ni ambición creativa.</p></div></div>
     </div>
   </div>
 </div>
